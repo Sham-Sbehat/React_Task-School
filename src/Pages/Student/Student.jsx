@@ -1,14 +1,21 @@
-import { useLocation, useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import styles from './Student.module.scss';
 
 export default function Student() {
-  const { id } = useParams(); // from URL like /student/123
+  const { id } = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
   const student = location.state?.student;
 
   const [formData, setFormData] = useState({ email: '', password: '' });
+
+  useEffect(() => {
+    if (!student) {
+      navigate('/not-found');
+    }
+  }, [student, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,19 +43,17 @@ export default function Student() {
     });
   };
 
+  if (!student) {
+    return null; 
+  }
+
   return (
     <div className={styles.studentPage}>
       <h1 className={styles.title}>Student Page</h1>
 
-      {student ? (
-        <>
-          <h2 className={styles.studentId}>👨‍🎓 Student_Name: {student.name}</h2>
-          <h3 className={styles.studentMajor}>📘 Major: {student.major}</h3>
-          <h4 className={styles.studentNumber}>🆔 Student_ID: {id}</h4>
-        </>
-      ) : (
-        <h4 className={styles.studentNumber}>🆔 Student_ID: {id}</h4>
-      )}
+      <h2 className={styles.studentId}>👨‍🎓 Student_Name: {student.name}</h2>
+      <h3 className={styles.studentMajor}>📘 Major: {student.major}</h3>
+      <h4 className={styles.studentNumber}>🆔 Student_ID: {id}</h4>
 
       <form onSubmit={handleSubmit}>
         <input
