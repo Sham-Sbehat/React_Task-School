@@ -7,7 +7,7 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<School />} />
-      <Route path="/student" element={<Student />} />
+      <Route path="/student/:id" element={<Student />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   )
