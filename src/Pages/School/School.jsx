@@ -5,7 +5,7 @@ export default function School() {
   const navigate = useNavigate();
 
   const handleClick = (student) => {
-    navigate('/student', { state: { student } });
+     navigate(`/student/${student.id}`, { state: { student } });
   };
 
   const students = [
