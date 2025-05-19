@@ -1,9 +1,10 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import Swal from 'sweetalert2';
 import styles from './Student.module.scss';
 
 export default function Student() {
+  const { id } = useParams(); // from URL like /student/123
   const location = useLocation();
   const student = location.state?.student;
 
@@ -43,10 +44,10 @@ export default function Student() {
         <>
           <h2 className={styles.studentId}>👨‍🎓 Student_Name: {student.name}</h2>
           <h3 className={styles.studentMajor}>📘 Major: {student.major}</h3>
-          <h4 className={styles.studentNumber}>🆔 Student_ID: {student.id}</h4>
+          <h4 className={styles.studentNumber}>🆔 Student_ID: {id}</h4>
         </>
       ) : (
-        <p></p>
+        <h4 className={styles.studentNumber}>🆔 Student_ID: {id}</h4>
       )}
 
       <form onSubmit={handleSubmit}>
